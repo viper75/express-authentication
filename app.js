@@ -1,7 +1,9 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const mongoose = require('mongoose');
+//Import Routes
 const auth_routes = require('./routes/auth');
+const user_routes = require('./routes/user');
 
 const app = express();
 
@@ -16,10 +18,11 @@ mongoose.connect(
   () => console.log('Database connection established!')
 );
 
-//Use express body parser
+//express body parser middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
-app.use('/api/auth/', auth_routes);
+//Routes Middlewares
+app.use('/api/v1/auth/', auth_routes);
+app.use('/api/v1/user/', user_routes);
 
 app.listen(PORT, () => console.log(`Server started on port: ${PORT}`));
